@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements  OnMovieClickList
     }
 
     @Override
-    public void onMovieClicked(String id)
+    public void onMovieClicked(int id)
     {
-            Toast.makeText(MainActivity.this, id,Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this,id,Toast.LENGTH_SHORT).show();
     }
 }

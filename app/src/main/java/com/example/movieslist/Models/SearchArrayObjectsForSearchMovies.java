@@ -43,7 +43,8 @@ public class SearchArrayObjectsForSearchMovies
             this.genre_ids = genre_ids;
         }
 
-        public int getId() {
+        public int getId()
+        {
             return id;
         }
 
