@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements  OnMovieClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        search_view = findViewById(R.id.home_recycler_view);
+        search_view = findViewById(R.id.search_view);
         home_recycler_view = findViewById(R.id.home_recycler_view);
 
         dialog = new ProgressDialog(this);
