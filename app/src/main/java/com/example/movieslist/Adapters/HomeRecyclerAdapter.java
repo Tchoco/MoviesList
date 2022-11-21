@@ -48,7 +48,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeViewHolder>
             @Override
             public void onClick(View view)
             {
-                listener.onMovieClicked(list.get(position).getId());
+                listener.onMovieClicked(String.valueOf(list.get(position).getId()));
             }
         });
     }
