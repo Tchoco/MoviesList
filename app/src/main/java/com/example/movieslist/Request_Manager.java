@@ -63,7 +63,7 @@ public class Request_Manager
         String key = "c46870fff6c94f30951b91811ae9238a";
         String page = "1";
         getMovieDetails getMovieDetails = retrofit.create(Request_Manager.getMovieDetails.class);
-        Call<DetailsApiResponse> call = getMovieDetails.callMovieDetails(key,movie_id,page);
+        Call<DetailsApiResponse> call = getMovieDetails.callMovieDetails(movie_id,key,page);
 
         call.enqueue(new Callback<DetailsApiResponse>() {
             @Override
@@ -105,7 +105,7 @@ public class Request_Manager
         @Headers({
                 "Accept: application/json",
         })
-
+ //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
         @GET("movie/{movie_id}")
         Call<DetailsApiResponse> callMovieDetails(
                 @Path("movie_id") String id,

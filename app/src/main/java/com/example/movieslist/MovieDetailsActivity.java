@@ -65,18 +65,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
     {
         textView_movie_name.setText(response.getTitle());
         textView_movie_released.setText("Date de sortie : " + response.getRelease_date());
-        textView_movie_runtime.setText("Durée du film : " + response.getRuntime());
-        textView_synopsis.setText("Synopsys : " + response.getOverview());
-        textView_movie_votes.setText("Nombres de votes : " + response.getVote_count());
-        textView_movie_rating.setText("Notes : " + response.getVote_average());
+        textView_movie_runtime.setText("Durée du film : " + response.getRuntime() + "min");
+        textView_synopsis.setText("Synopsis : " + response.getOverview());
+        textView_movie_votes.setText("Nombre de votes : " + response.getVote_count());
+        textView_movie_rating.setText("Notes : " + response.getVote_average() +"/10");
+        Picasso.get().load(response.getPoster_path()).into(imageView_movie_poster);
 
-        try
-        {
-            Picasso.get().load(response.getPoster_path()).into(imageView_movie_poster);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+
     }
 }
