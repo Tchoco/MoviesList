@@ -2,6 +2,6 @@ package com.example.movieslist.Listeners;
 
 public interface OnMovieClickListeners
 {
-    void onMovieClicked(int  id);
+    void onMovieClicked(String  movie_ID);
 
 }
