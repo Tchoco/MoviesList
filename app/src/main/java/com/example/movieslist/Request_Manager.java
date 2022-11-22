@@ -3,7 +3,9 @@ package com.example.movieslist;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.movieslist.Listeners.OnDetailsApiListeners;
 import com.example.movieslist.Listeners.OnSearchMoviesApiListeners;
+import com.example.movieslist.Models.DetailsApiResponse;
 import com.example.movieslist.Models.SearchApiResponse;
 
 import retrofit2.Call;
@@ -13,6 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class Request_Manager
@@ -55,6 +58,34 @@ public class Request_Manager
             }
         });
     }
+    public void searchMovieDetails(OnDetailsApiListeners listener, String movie_id)
+    {
+        String key = "c46870fff6c94f30951b91811ae9238a";
+        String page = "1";
+        getMovieDetails getMovieDetails = retrofit.create(Request_Manager.getMovieDetails.class);
+        Call<DetailsApiResponse> call = getMovieDetails.callMovieDetails(key,movie_id,page);
+
+        call.enqueue(new Callback<DetailsApiResponse>() {
+            @Override
+            public void onResponse(Call<DetailsApiResponse> call, Response<DetailsApiResponse> response)
+            {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(context,"impossible d'acquerir les données !!!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<DetailsApiResponse> call, Throwable t)
+            {
+                listener.onError(t.getMessage());
+
+            }
+        });
+    }
+
     public interface getMovies
     {
         @Headers({
@@ -69,4 +100,18 @@ public class Request_Manager
                 @Query("page") String page
         );
     }
+    public interface getMovieDetails
+    {
+        @Headers({
+                "Accept: application/json",
+        })
+
+        @GET("movie/{movie_id}")
+        Call<DetailsApiResponse> callMovieDetails(
+                @Path("movie_id") String id,
+                @Query("api_key") String key,
+                @Query("page") String page
+        );
+    }
+
 }
