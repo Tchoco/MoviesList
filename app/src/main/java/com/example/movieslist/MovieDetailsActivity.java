@@ -1,6 +1,7 @@
 package com.example.movieslist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
@@ -9,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.movieslist.Adapters.CastRecylerAdapter;
+import com.example.movieslist.Listeners.OnCastMembersApiListeners;
 import com.example.movieslist.Listeners.OnDetailsApiListeners;
+import com.example.movieslist.Models.CastMembers;
 import com.example.movieslist.Models.DetailsApiResponse;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +21,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView textView_movie_name, textView_movie_released, textView_movie_runtime,textView_movie_rating, textView_movie_votes, textView_synopsis;
     ImageView imageView_movie_poster;
     RecyclerView recycler_movie_cast;
-    //CastRecyclerAdapter adapter;
+    CastRecylerAdapter adapter;
     Request_Manager manager ;
     Request_Manager manager2 ;
     ProgressDialog dialog;
@@ -37,11 +41,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
         recycler_movie_cast     = findViewById(R.id.recyler_movie_cast);
 
         manager = new Request_Manager(this);
+        manager2 = new Request_Manager(this);
         String movie_id = getIntent().getStringExtra("data");
         dialog = new ProgressDialog(this);
         dialog.setTitle("Patientez...");
         dialog.show();
         manager.searchMovieDetails(listener,movie_id);
+        manager2.searchCastMembers(listener2,movie_id);
     }
     private OnDetailsApiListeners listener = new OnDetailsApiListeners() {
         @Override
@@ -61,6 +67,25 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     };
 
+    private OnCastMembersApiListeners listener2 = new OnCastMembersApiListeners() {
+        @Override
+        public void onResponse(CastMembers response)
+        {
+            dialog.dismiss();
+            if(response.equals(null)){
+                Toast.makeText(MovieDetailsActivity.this,"Une erreur02 est survenue",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            showResults2(response);
+        }
+
+        @Override
+        public void onError(String message) {
+            dialog.dismiss();
+            Toast.makeText(MovieDetailsActivity.this,"Une erreur02 est survenue",Toast.LENGTH_SHORT).show();
+        }
+    };
+
     private void showResults(DetailsApiResponse response)
     {
         textView_movie_name.setText(response.getTitle());
@@ -69,8 +94,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         textView_synopsis.setText("Synopsis : " + response.getOverview());
         textView_movie_votes.setText("Nombre de votes : " + response.getVote_count());
         textView_movie_rating.setText("Notes : " + response.getVote_average() +"/10");
-        Picasso.get().load(response.getPoster_path()).into(imageView_movie_poster);
+        try
+        {
+            Picasso.get().load(response.getPoster_path()).into(imageView_movie_poster);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+
+
+    }
+    private void showResults2(CastMembers response)
+    {
+        recycler_movie_cast.setHasFixedSize(true);
+        recycler_movie_cast.setLayoutManager(new GridLayoutManager(this,1));
+        adapter = new CastRecylerAdapter(this,response.getCast());
+        recycler_movie_cast.setAdapter(adapter);
 
     }
 }

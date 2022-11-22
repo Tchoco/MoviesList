@@ -94,12 +94,17 @@
                     <ImageView
                         android:id="@+id/Image_View_movie_poster"
                         android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/textView_movie_plot"
                         android:textStyle="normal"
                         android:textAlignment="center"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:justificationMode="inter_word"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:layout_width="match_parent"

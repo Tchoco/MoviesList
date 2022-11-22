@@ -3,8 +3,10 @@ package com.example.movieslist;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.movieslist.Listeners.OnCastMembersApiListeners;
 import com.example.movieslist.Listeners.OnDetailsApiListeners;
 import com.example.movieslist.Listeners.OnSearchMoviesApiListeners;
+import com.example.movieslist.Models.CastMembers;
 import com.example.movieslist.Models.DetailsApiResponse;
 import com.example.movieslist.Models.SearchApiResponse;
 
@@ -86,6 +88,34 @@ public class Request_Manager
         });
     }
 
+    public void searchCastMembers(OnCastMembersApiListeners listener, String movie_id)
+    {
+        String key = "c46870fff6c94f30951b91811ae9238a";
+        String page = "1";
+        getCast getCast = retrofit.create(Request_Manager.getCast.class);
+        Call<CastMembers> call = getCast.callCastMembers(movie_id,key,page);
+
+        call.enqueue(new Callback<CastMembers>() {
+            @Override
+            public void onResponse(Call<CastMembers> call, Response<CastMembers> response)
+            {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(context,"impossible d'acquerir les données !!!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<CastMembers> call, Throwable t)
+            {
+                listener.onError(t.getMessage());
+
+            }
+        });
+    }
+
     public interface getMovies
     {
         @Headers({
@@ -108,6 +138,20 @@ public class Request_Manager
  //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
         @GET("movie/{movie_id}")
         Call<DetailsApiResponse> callMovieDetails(
+                @Path("movie_id") String id,
+                @Query("api_key") String key,
+                @Query("page") String page
+        );
+    }
+
+    public interface getCast
+    {
+        @Headers({
+                "Accept: application/json",
+        })
+        //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
+        @GET("movie/{movie_id}/credits")
+        Call<CastMembers> callCastMembers(
                 @Path("movie_id") String id,
                 @Query("api_key") String key,
                 @Query("page") String page

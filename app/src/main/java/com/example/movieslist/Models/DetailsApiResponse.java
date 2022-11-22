@@ -43,8 +43,8 @@ public class DetailsApiResponse {
     }
 
     public String getPoster_path() {
-        String path = "https://image.tmdb.org/t/p/w500/" + poster_path;
-        return poster_path;
+        String path = "https://image.tmdb.org/t/p/w500" + poster_path;
+        return path;
     }
 
     public void setPoster_path(String poster_path) {

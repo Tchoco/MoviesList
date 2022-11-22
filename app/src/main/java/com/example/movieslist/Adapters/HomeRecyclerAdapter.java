@@ -41,6 +41,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeViewHolder>
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position)
     {
         holder.textView_movie.setText(list.get(position).getTitle());
+        holder.textView_movie.setSelected(true);
         Picasso.get().load(list.get(position).getPoster_path()).into(holder.imageView_poster);
 
         holder.home_container.setOnClickListener(new View.OnClickListener()
