@@ -6,9 +6,11 @@ import android.widget.Toast;
 import com.example.movieslist.Listeners.OnCastMembersApiListeners;
 import com.example.movieslist.Listeners.OnDetailsApiListeners;
 import com.example.movieslist.Listeners.OnSearchMoviesApiListeners;
+import com.example.movieslist.Listeners.OnWatchProvidersApiListeners;
 import com.example.movieslist.Models.CastMembers;
 import com.example.movieslist.Models.DetailsApiResponse;
 import com.example.movieslist.Models.SearchApiResponse;
+import com.example.movieslist.Models.WatchProvidersApiResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,7 +89,6 @@ public class Request_Manager
             }
         });
     }
-
     public void searchCastMembers(OnCastMembersApiListeners listener, String movie_id)
     {
         String key = "c46870fff6c94f30951b91811ae9238a";
@@ -109,6 +110,34 @@ public class Request_Manager
 
             @Override
             public void onFailure(Call<CastMembers> call, Throwable t)
+            {
+                listener.onError(t.getMessage());
+
+            }
+        });
+    }
+
+    public void searchWatchProviders(OnWatchProvidersApiListeners listener, String movie_id)
+    {
+        String key = "c46870fff6c94f30951b91811ae9238a";
+        String page = "1";
+        getWatchProviders getWatchProviders = retrofit.create(Request_Manager.getWatchProviders.class);
+        Call<WatchProvidersApiResponse> call = getWatchProviders.callWatchProviders(movie_id,key,page);
+
+        call.enqueue(new Callback<WatchProvidersApiResponse>() {
+            @Override
+            public void onResponse(Call<WatchProvidersApiResponse> call, Response<WatchProvidersApiResponse> response)
+            {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(context,"impossible d'acquerir les données !!!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<WatchProvidersApiResponse> call, Throwable t)
             {
                 listener.onError(t.getMessage());
 
@@ -152,6 +181,20 @@ public class Request_Manager
         //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
         @GET("movie/{movie_id}/credits")
         Call<CastMembers> callCastMembers(
+                @Path("movie_id") String id,
+                @Query("api_key") String key,
+                @Query("page") String page
+        );
+    }
+
+    public interface getWatchProviders
+    {
+        @Headers({
+                "Accept: application/json",
+        })
+        //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
+        @GET("movie/{movie_id}/watch/provides")
+        Call<WatchProvidersApiResponse> callWatchProviders(
                 @Path("movie_id") String id,
                 @Query("api_key") String key,
                 @Query("page") String page
