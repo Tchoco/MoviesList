@@ -193,7 +193,7 @@ public class Request_Manager
                 "Accept: application/json",
         })
         //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
-        @GET("movie/{movie_id}/watch/provides")
+        @GET("movie/{movie_id}/watch/providers")
         Call<WatchProvidersApiResponse> callWatchProviders(
                 @Path("movie_id") String id,
                 @Query("api_key") String key,

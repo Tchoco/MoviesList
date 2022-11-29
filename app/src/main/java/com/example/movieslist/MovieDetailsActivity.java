@@ -1,6 +1,7 @@
 package com.example.movieslist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +22,11 @@ import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     TextView textView_movie_name, textView_movie_released, textView_movie_runtime,textView_movie_rating, textView_movie_votes, textView_synopsis;
-    ImageView imageView_movie_poster, Imageview_WatchProviders;
-    RecyclerView recycler_movie_cast;
+    ImageView imageView_movie_poster;
+    CardView cardView_watch_providers;
+    RecyclerView recycler_movie_cast, recycler_movie_provider;
     CastRecylerAdapter adapter;
+    ProviderRecylerAdapter adapter2;
     Request_Manager manager ;
     Request_Manager manager2,manager3 ;
     ProgressDialog dialog;
@@ -40,7 +43,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         textView_movie_runtime  = findViewById(R.id.textView_movie_runtime);
         textView_movie_votes    = findViewById(R.id.textView_movie_votes);
         imageView_movie_poster  = findViewById(R.id.Image_View_movie_poster);
-        Imageview_WatchProviders = findViewById(R.id.Imageview_WatchProviders);
+        cardView_watch_providers = findViewById(R.id.cardView_watch_providers);
         recycler_movie_cast     = findViewById(R.id.recyler_movie_cast);
 
         manager = new Request_Manager(this);
@@ -141,6 +144,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void showResults3(WatchProvidersApiResponse response)
     {
-    
+        recycler_movie_provider.setHasFixedSize(true);
+        recycler_movie_provider.setLayoutManager(new GridLayoutManager(this,1));
+        adapter2 = new ProviderRecylerAdapter(this,response.getWatchProviders());
+        recycler_movie_provider.setAdapter(adapter);
     }
 }

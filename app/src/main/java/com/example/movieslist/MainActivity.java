@@ -15,7 +15,7 @@ import com.example.movieslist.Listeners.OnMovieClickListeners;
 import com.example.movieslist.Listeners.OnSearchMoviesApiListeners;
 import com.example.movieslist.Models.SearchApiResponse;
 
-public class MainActivity extends AppCompatActivity implements  OnMovieClickListeners {
+public class MainActivity extends AppCompatActivity implements OnMovieClickListeners {
 
     SearchView search_view;
     RecyclerView home_recycler_view;
