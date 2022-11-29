@@ -1,7 +1,6 @@
 package com.example.movieslist.Listeners;
 
-import com.example.movieslist.Models.CastMembers;
-import com.example.movieslist.Models.WatchProvidersApiResponse;
+import com.example.movieslist.Models.WatchProviders.WatchProvidersApiResponse;
 
 public interface OnWatchProvidersApiListeners
 {

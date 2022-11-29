@@ -1,4 +1,4 @@
-package com.example.movieslist.Models;
+package com.example.movieslist.Models.WatchProviders;
 
 import java.util.List;
 

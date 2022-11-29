@@ -11,21 +11,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.movieslist.Adapters.CastRecylerAdapter;
+import com.example.movieslist.Adapters.WatchProvidersRecylclerAdapater;
 import com.example.movieslist.Listeners.OnCastMembersApiListeners;
 import com.example.movieslist.Listeners.OnDetailsApiListeners;
 import com.example.movieslist.Listeners.OnWatchProvidersApiListeners;
 import com.example.movieslist.Models.CastMembers;
 import com.example.movieslist.Models.DetailsApiResponse;
-import com.example.movieslist.Models.WatchProvidersApiResponse;
+import com.example.movieslist.Models.WatchProviders.WatchProvidersApiResponse;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     TextView textView_movie_name, textView_movie_released, textView_movie_runtime,textView_movie_rating, textView_movie_votes, textView_synopsis;
-    ImageView imageView_movie_poster, Imageview_WatchProviders;
-    RecyclerView recycler_movie_cast;
-    CastRecylerAdapter adapter;
+
+    ImageView imageView_movie_poster, imageview_WatchProviders;
+    RecyclerView recycler_movie_cast, WatchProviders_recycler_view;
+
+    CastRecylerAdapter adapter,adapter2;
     Request_Manager manager ;
-    Request_Manager manager2,manager3 ;
+    Request_Manager manager2,manager3, manager4;
     ProgressDialog dialog;
 
     @Override
@@ -40,19 +43,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         textView_movie_runtime  = findViewById(R.id.textView_movie_runtime);
         textView_movie_votes    = findViewById(R.id.textView_movie_votes);
         imageView_movie_poster  = findViewById(R.id.Image_View_movie_poster);
-        Imageview_WatchProviders = findViewById(R.id.Imageview_WatchProviders);
-        recycler_movie_cast     = findViewById(R.id.recyler_movie_cast);
+
+
+        recycler_movie_cast          = findViewById(R.id.recyler_movie_cast);
+        WatchProviders_recycler_view = findViewById(R.id.watchProviders_recycler_view);
 
         manager = new Request_Manager(this);
         manager2 = new Request_Manager(this);
         manager3 = new Request_Manager(this);
+
         String movie_id = getIntent().getStringExtra("data");
         dialog = new ProgressDialog(this);
         dialog.setTitle("Patientez...");
         dialog.show();
+
         manager.searchMovieDetails(listener,movie_id);
         manager2.searchCastMembers(listener2,movie_id);
         manager3.searchWatchProviders(listener3,movie_id);
+
     }
     private OnDetailsApiListeners listener = new OnDetailsApiListeners() {
         @Override
@@ -111,6 +119,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     };
 
 
+
     private void showResults(DetailsApiResponse response)
     {
         textView_movie_name.setText(response.getTitle());
@@ -141,6 +150,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void showResults3(WatchProvidersApiResponse response)
     {
-    
+        WatchProviders_recycler_view.setHasFixedSize(true);
+        WatchProviders_recycler_view.setLayoutManager(new GridLayoutManager(this,1));
+        adapter2 = new WatchProvidersRecylclerAdapater(this,response.getResults());
+        WatchProviders_recycler_view.set
     }
 }

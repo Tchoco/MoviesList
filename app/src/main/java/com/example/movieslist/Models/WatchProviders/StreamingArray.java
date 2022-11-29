@@ -1,4 +1,4 @@
-package com.example.movieslist.Models;
+package com.example.movieslist.Models.WatchProviders;
 
 public class StreamingArray
 {
@@ -11,7 +11,8 @@ public class StreamingArray
     }
 
     public void setLogo_path(String logo_path) {
-        this.logo_path = logo_path;
+        String path = "https://image.tmdb.org/t/p/w500" + logo_path;
+        this.logo_path = path;
     }
 
     public String getProvider_id() {

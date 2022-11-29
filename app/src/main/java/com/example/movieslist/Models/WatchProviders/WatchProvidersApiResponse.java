@@ -1,4 +1,6 @@
-package com.example.movieslist.Models;
+package com.example.movieslist.Models.WatchProviders;
+
+import com.example.movieslist.Models.WatchProviders.ArrayWatchProvidersFr;
 
 import java.util.List;
 

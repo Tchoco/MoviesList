@@ -1,6 +1,6 @@
-package com.example.movieslist.Models;
+package com.example.movieslist.Models.WatchProviders;
 
-public class RentArray
+public class BuyArray
 {
     String logo_path = "";
     String provider_id = "";

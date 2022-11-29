@@ -10,7 +10,7 @@ import com.example.movieslist.Listeners.OnWatchProvidersApiListeners;
 import com.example.movieslist.Models.CastMembers;
 import com.example.movieslist.Models.DetailsApiResponse;
 import com.example.movieslist.Models.SearchApiResponse;
-import com.example.movieslist.Models.WatchProvidersApiResponse;
+import com.example.movieslist.Models.WatchProviders.ArrayWatchProvidersFr;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -122,11 +122,11 @@ public class Request_Manager
         String key = "c46870fff6c94f30951b91811ae9238a";
         String page = "1";
         getWatchProviders getWatchProviders = retrofit.create(Request_Manager.getWatchProviders.class);
-        Call<WatchProvidersApiResponse> call = getWatchProviders.callWatchProviders(movie_id,key,page);
+        Call<ArrayWatchProvidersFr> call = getWatchProviders.callWatchProviders(movie_id,key,page);
 
-        call.enqueue(new Callback<WatchProvidersApiResponse>() {
+        call.enqueue(new Callback<ArrayWatchProvidersFr>() {
             @Override
-            public void onResponse(Call<WatchProvidersApiResponse> call, Response<WatchProvidersApiResponse> response)
+            public void onResponse(Call<ArrayWatchProvidersFr> call, Response<ArrayWatchProvidersFr> response)
             {
                 if(!response.isSuccessful())
                 {
@@ -137,7 +137,7 @@ public class Request_Manager
             }
 
             @Override
-            public void onFailure(Call<WatchProvidersApiResponse> call, Throwable t)
+            public void onFailure(Call<ArrayWatchProvidersFr> call, Throwable t)
             {
                 listener.onError(t.getMessage());
 
@@ -194,7 +194,7 @@ public class Request_Manager
         })
         //movie/101037?api_key=c46870fff6c94f30951b91811ae9238a&language=en-US
         @GET("movie/{movie_id}/watch/provides")
-        Call<WatchProvidersApiResponse> callWatchProviders(
+        Call<ArrayWatchProvidersFr> callWatchProviders(
                 @Path("movie_id") String id,
                 @Query("api_key") String key,
                 @Query("page") String page
