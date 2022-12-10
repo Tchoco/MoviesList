@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#C0C2C9"
     android:orientation="vertical"
     tools:context=".MovieDetailsActivity">
     <ScrollView
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
-                app:cardBackgroundColor="@color/blue"
+                app:cardBackgroundColor="#4162E1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 android:layout_margin="8dp"
@@ -81,7 +81,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_margin="8dp"
-                app:cardBackgroundColor="@color/blue"
+                app:cardBackgroundColor="#4162E1"
                 app:cardElevation="8dp"
                 app:cardCornerRadius="8dp"
                 android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/blue"
+                app:cardBackgroundColor="#4162E1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -144,7 +144,7 @@
                             android:layout_height="match_parent"/>
                         <TextView
                             android:id="@+id/textView_character"
-                            android:text="characters"
+                            android:text="Characters"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textAlignment="center"
