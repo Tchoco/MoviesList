@@ -90,7 +90,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     {
         textView_movie_name.setText(response.getTitle());
         textView_movie_released.setText("Date de sortie : " + response.getRelease_date());
-        textView_movie_runtime.setText("Durée du film : " + response.getRuntime() + "min");
+        textView_movie_runtime.setText("Durée du film : " + response.getRuntime() + " min");
         textView_synopsis.setText("Synopsis : " + response.getOverview());
         textView_movie_votes.setText("Nombre de votes : " + response.getVote_count());
         textView_movie_rating.setText("Notes : " + response.getVote_average() +"/10");
