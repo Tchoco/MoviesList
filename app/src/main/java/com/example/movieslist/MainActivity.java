@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.movieslist.Adapters.HomeRecyclerAdapter;
@@ -15,19 +16,39 @@ import com.example.movieslist.Listeners.OnMovieClickListeners;
 import com.example.movieslist.Listeners.OnSearchMoviesApiListeners;
 import com.example.movieslist.Models.SearchApiResponse;
 
-public class MainActivity extends AppCompatActivity implements  OnMovieClickListeners {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity implements OnMovieClickListeners {
 
     SearchView search_view;
     RecyclerView home_recycler_view;
     Request_Manager manager;
     HomeRecyclerAdapter adapter;
     ProgressDialog dialog;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
+        timer = new Timer();
+        timer.schedule(new TimerTask(){
+            public void run(){
+                Intent intent = new Intent(HomeScreenActivity.this, MainActivity.this);
+                startActivity(intent);
+                finish();
+            }
+        }, 3000);*/
+        // setContentView(R.layout.activity_homescreen);
+        /*
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(HomeScreenActivity.this, MainActivity.class));
+            }
+        },3000);*/
         setContentView(R.layout.activity_main);
-
         search_view = findViewById(R.id.search_view);
         home_recycler_view = findViewById(R.id.home_recycler_view);
 
